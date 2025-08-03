@@ -28,12 +28,12 @@ services:
     disks:
       - name: wizgrade-uploads
         mountPath: /var/www/html/wizGradePic
-        sizeGB: 10 # You can adjust this size later
+        sizeGB: 10
 
   - type: pserv
     name: wizgrade-db
     env: mysql
-    plan: free # Or your desired plan
+    plan: free
     databaseName: wizgrade_db
     databaseUser: wizgrade_user
     envVars:
