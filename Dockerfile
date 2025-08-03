@@ -11,4 +11,4 @@ COPY . /var/www/html/
 # Set the correct permissions for the web server to write to the files
 # This is a broader permission set to ensure the installer can write where it needs to.
 RUN chown -R www-data:www-data /var/www/html
-RUN chmod -R 777 /var/w
+RUN chmod -R 777 /var/www/html
