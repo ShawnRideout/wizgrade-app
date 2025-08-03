@@ -2,63 +2,44 @@
 # prevent directory listing
 Options -Indexes
 
-#
 # `mod_rewrite` is required
-#
 <IfModule mod_rewrite.c>
-  RewriteEngine on
-  RewriteRule    ^$    webroot/    [L]
-  RewriteRule    (.*) webroot/$1    [L]
+    RewriteEngine On
+    RewriteBase /
+    RewriteRule ^index\.php$ - [L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . /index.php [L]
 </IfModule>
-<IfModule mod_security.c>
-   # Turn off mod_security filtering.
-   SecFilterEngine Off
 
-   # The below probably isn't needed, but better safe than sorry.
-   SecFilterScanPOST Off
-</IfModule>
 # Customized error messages
 ErrorDocument 404 /404.php
 
 # BEGIN Caching
 <IfModule mod_expires.c>
-ExpiresActive On
-ExpiresByType image/jpg "access 1 year"
-ExpiresByType image/jpeg "access 1 year"
-ExpiresByType image/gif "access 1 year"
-ExpiresByType image/png "access 1 year"
-ExpiresByType text/css "access 1 month"
-ExpiresByType application/pdf "access 1 month"
-ExpiresByType text/x-javascript "access 1 month"
-ExpiresByType application/x-shockwave-flash "access 1 month"
-ExpiresByType image/x-icon "access 1 year"
-ExpiresDefault "access 2 days"
+    ExpiresActive On
+    ExpiresByType image/jpg "access 1 year"
+    ExpiresByType image/jpeg "access 1 year"
+    ExpiresByType image/gif "access 1 year"
+    ExpiresByType image/png "access 1 year"
+    ExpiresByType text/css "access 1 month"
+    ExpiresByType application/pdf "access 1 month"
+    ExpiresByType text/x-javascript "access 1 month"
+    ExpiresDefault "access 2 days"
 </IfModule>
 # END Caching
 
 # BEGIN GZIP COMPRESSION
 <IfModule mod_deflate.c>
-<FilesMatch "\.(html|php|txt|xml|js|css)$">
-SetOutputFilter DEFLATE
-</FilesMatch>
+    <FilesMatch "\.(html|php|txt|xml|js|css)$">
+        SetOutputFilter DEFLATE
+    </FilesMatch>
 </IfModule>
 # END GZIP COMPRESSION
 
 # BEGIN HEADERS
-# Unset ETag
 <IfModule mod_headers.c>
-Header unset ETag
-FileETag None
+    Header unset ETag
+    FileETag None
 </IfModule>
 # END HEADERS
-
-# WORDPRESS BEGIN
-#<IfModule mod_rewrite.c>
-#RewriteEngine On
-#RewriteBase /
-#RewriteRule ^index\.php$ - [L]
-#RewriteCond %{REQUEST_FILENAME} !-f
-#RewriteCond %{REQUEST_FILENAME} !-d
-#RewriteRule . /index.php [L]
-#</IfModule>
-# WORDPRESS END
